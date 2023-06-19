@@ -1,0 +1,22 @@
+﻿@model IEnumerable<BulletinDTO>
+@{
+	ViewData["Title"] = "Favorites";
+	ViewData["ReturnUrl"] = "/Favorites";
+}
+
+<h1 class="text-center display-4 fw-bold mt-3 mb-4">Favorites</h1>
+
+@if (Model.Any())
+{
+	<div class="d-flex flex-wrap justify-content-md-evenly">
+		@foreach (var p in Model)
+			@await Html.PartialAsync("_BulletinCardPartial", p)
+	</div>
+}
+else
+{
+	<p class="text-center fs-3">
+		Nothing here to show!<br>
+		Maybe add <a asp-controller="Home" asp-action="Index">something</a> to this list?
+	</p>
+}

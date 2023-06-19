@@ -1,0 +1,15 @@
+﻿@using Bulletinboard
+@using Bulletinboard.Models
+@using Business_Logic.DTO;
+@using Business_Logic.Services;
+@using Microsoft.AspNetCore.Identity;
+@using Business_Logic.Interfaces;
+@using DataAccess.Entities;
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@inject UserManager<User> uManager
+@inject IBulletinService bulsService
+@inject IFavoritesService favsService
+@inject IDataService<Category, CategoryDTO> catsService
+@inject IDataService<City, CityDTO> cityService

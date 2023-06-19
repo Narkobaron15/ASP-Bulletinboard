@@ -1,0 +1,68 @@
+﻿@model BulletinDTO
+@{
+    ViewData["Title"] = "New product";
+}
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="row mb-3 gy-2 gx-3">
+        <label class="col-sm-2 col-form-label" asp-for="Title">Title:</label>
+        <div class="col-sm-10">
+            <input asp-for="Title" type="text" class="form-control" placeholder="Enter bulletin title...">
+        </div>
+        <span asp-validation-for="Title" class="form-text text-danger"></span>
+    </div>
+    <div class="row mb-3 gy-2 gx-3">
+        <label class="col-sm-2 col-form-label" asp-for="BulletinType">Type:</label>
+        <div class="col-sm-10">
+            @* asp-items should be bound to SelectList *@
+            <select asp-for="BulletinType" asp-items="@ViewBag.Types" class="form-control"></select>
+        </div>
+        <span asp-validation-for="BulletinType" class="form-text text-danger"></span>
+    </div>
+    <div class="row mb-3 gy-2 gx-3">
+        <label class="col-sm-2 col-form-label" asp-for="CategoryId">Category:</label>
+        <div class="col-sm-10">
+            <select asp-for="CategoryId" class="form-control" asp-items="@ViewBag.Categories"></select>
+        </div>
+        <span asp-validation-for="CategoryId" class="form-text text-danger"></span>
+    </div>
+    <div class="row mb-3 gy-2 gx-3">
+        <label class="col-sm-2 col-form-label" asp-for="Price">Price:</label>
+        <div class="col-sm-10">
+            <input asp-for="Price" class="form-control" placeholder="Enter price...">
+        </div>
+        <span asp-validation-for="Price" class="form-text text-danger"></span>
+    </div>
+    <div class="row mb-3 gy-2 gx-3">
+        <label class="col-sm-2 col-form-label" asp-for="CityId">City:</label>
+        <div class="col-sm-10">
+            <select asp-for="CityId" class="form-control" asp-items="@ViewBag.Cities"></select>
+        </div>
+        <span asp-validation-for="CityId" class="form-text text-danger"></span>
+    </div>
+    <div class="row mb-3 gy-2 gx-3">
+        <label class="col-sm-2 col-form-label" asp-for="Contacts">Contacts:</label>
+        <div class="col-sm-10">
+            <input asp-for="Contacts" class="form-control" placeholder="Enter your contacts...">
+        </div>
+        <span asp-validation-for="Contacts" class="form-text text-danger"></span>
+    </div>
+    <div class="row mb-3 gy-2 gx-3">
+        <label class="col-sm-2 col-form-label" asp-for="Description">Description: </label>
+        <textarea asp-for="Description" class="form-control ms-1 me-3" cols="30" rows="10"
+            placeholder="Enter description..."></textarea>
+        <span asp-validation-for="Description" class="form-text text-danger"></span>
+    </div>
+    <div class="row mb-3 gy-2 gx-3">
+        <label class="col-sm-2 col-form-label">Pictures: </label>
+        <input class="form-control" type="file" name="Pictures" multiple />
+    </div>
+    <div class="row mb-3 gy-2 gx-3">
+        <div class="d-flex justify-content-center">
+            <div class="btn-group" role="group" aria-label="Actions">
+                <a class="btn btn-dark" asp-controller="Bulletins" asp-action="Index">Go back</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,83 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+    min-height: 100vh;
+    margin: 0;
+}
+
+header, footer {
+    background-color: #e3f2fd;
+    min-height: 50px;
+}
+
+::before, ::after {
+    display: inline-block;
+}
+footer {
+    min-height: 2rem;
+}
+
+/* The main fills all the space between header & footer */
+main {
+    flex: 1;
+}
+
+/*custom styles*/
+
+a.back span {
+    display: inline-flex;
+}
+
+.form-group {
+    margin-top: 1rem;
+}
+
+a.back span::before {
+    margin-right: 0.5rem;
+    content: '';
+    background: center / 1rem no-repeat url('https://cdn-icons-png.flaticon.com/512/7945/7945195.png');
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.top-10px {
+    top: 10px;
+}
+
+.card {
+    overflow: hidden;
+}
+
+.card img, .details img {
+    object-fit: cover;
+}
+
+.card img {
+    height: 200px;
+    width: 300px;
+}
+
+.details img {
+    height: 250px;
+    width: 250px;
+}
+
+.circledplus {
+    width: 150px;
+    height: 150px;
+    background: no-repeat center url('../img/circledplus.png');
+    background-size: 150px;
+}

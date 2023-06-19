@@ -1,0 +1,63 @@
+﻿@model BulletinDTO;
+@{
+    ViewData["Title"] = $"Details for {Model.Title}";
+    ViewData["FromDetails"] = true;
+    ViewData["InFavs"] = favsService.IsInFavs(Model, User);
+}
+
+<h1 class="text-center display-4 fw-bold mt-5 mb-2">@Model.Title</h1>
+
+<!-- Breadcrumbs and back button -->
+<nav class="d-flex mb-4">
+    <a class="btn btn-dark back py-0" href="@ViewBag.ReturnUrl"><span class="my-2">Back</span></a>
+    <div id="breadcrumbs"></div>
+</nav>
+
+<div class="container details bg-secondary text-light p-4 rounded-2 d-flex justify-content-between">
+    <div>
+        <p>
+            <strong>Contacts:</strong><br />
+            @Model.Contacts
+        </p>
+        @if (Model.Description != null)
+        {
+            <br />
+            <p>
+                <strong>Description:</strong><br>
+                @Model.Description
+            </p>
+        }
+    </div>
+    <div>
+        <img src="@(Model.PrimaryImage ?? "/img/ph.svg")" alt="Image placeholder">
+        <p class="fs-2 mt-2 mb-0"><strong>@Model.FullPrice</strong></p>
+        <p class="fs-4 mb-0"><strong>@cityService.GetById(Model.CityId), @catsService.GetById(Model.CategoryId)</strong></p>
+        <a type="submit" class="btn @(ViewBag.InFavs ? "btn-primary" : "btn-outline-primary") d-block my-2"
+           asp-controller="Favorites" asp-action="Favorite"
+           asp-route-id="@Model.Id" asp-route-returnUrl="@(ViewBag.FavReturnUrl)">
+            @if (ViewBag.InFavs)
+            {
+                <span>Remove from favorites</span>
+                <i class="fa-solid fa-heart ms-3"></i>
+            }
+            else
+            {
+                <span>Add to favorites</span>
+                <i class="fa-regular fa-heart ms-3"></i>
+            }
+        </a>
+        @if (bulsService.IsOwner(Model, User))
+        {
+            <div class="d-flex justify-content-between mt-2">
+                <a asp-controller="Bulletins" asp-action="Update" asp-route-id="@Model.Id" class="btn btn-success">
+                    <i class="fa-solid fa-pen-to-square me-2"></i> Update
+                </a>
+                <form method="post" asp-controller="Bulletins" asp-action="Delete" asp-route-id="@Model.Id">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-trash me-2"></i> Delete
+                    </button>
+                </form>
+            </div>
+        }
+    </div>
+</div>

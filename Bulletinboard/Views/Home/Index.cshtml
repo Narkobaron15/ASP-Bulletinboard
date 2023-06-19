@@ -1,0 +1,13 @@
+﻿@model IEnumerable<BulletinDTO>
+@{
+    ViewData["Title"] = "All adverts";
+    ViewData["FromDetails"] = false;
+    ViewData["ReturnUrl"] = "/Home";
+}
+
+<h1 class="text-center display-4 fw-bold mt-3 mb-4">Welcome to the board!</h1>
+
+<div class="d-flex flex-wrap justify-content-md-evenly">
+    @foreach (var p in Model)
+        @await Html.PartialAsync("_BulletinCardPartial", p)
+</div>

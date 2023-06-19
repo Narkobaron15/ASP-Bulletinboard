@@ -1,0 +1,54 @@
+﻿@model IEnumerable<BulletinDTO>
+@{
+    ViewData["Title"] = "Products admin panel";
+}
+
+<h1>Product List</h1>
+<p>You can manage the available products in the database...</p>
+<hr />
+
+@*Razor Syntax: @if() @{..C#..} @for ...*@
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">City</th>
+            <th scope="col">Contacts</th>
+            <th scope="col">Description</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr class="align-middle">
+                <th scope="row">@p.Id</th>
+                <td>@p.Title</td>
+                <td>@catsService.GetById(p.CategoryId)</td>
+                <td>@p.FullPrice</td>
+                <td>@cityService.GetById(p.CityId)</td>
+                <td>@p.Contacts</td>
+                <td>@p.Description</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a asp-controller="Bulletins" asp-action="Details" asp-route-id="@p.Id" class="btn btn-info">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+                        <a asp-controller="Bulletins" asp-action="Update" asp-route-id="@p.Id" class="btn btn-success">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <form class="d-inline" method="post" asp-controller="Bulletins" asp-action="Delete" asp-route-id="@p.Id">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

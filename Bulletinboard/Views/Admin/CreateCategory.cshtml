@@ -1,0 +1,17 @@
+﻿@model CategoryDTO
+@{
+	ViewData["Title"] = "New category";
+}
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Name">Category name:</label>
+        <input asp-for="Name" type="text" class="form-control" placeholder="Enter category name...">
+    </div>
+    <div class="form-group d-flex justify-content-center mt-3">
+        <div class="btn-group" role="group" aria-label="Actions">
+            <a class="btn btn-dark" asp-action="Index">Go back</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
