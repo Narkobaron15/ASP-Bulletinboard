@@ -9,6 +9,7 @@ using Business_Logic.Profiles;
 using Repository.Implementations;
 using Repository.Interfaces;
 using Business_Logic.DTO;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,7 +34,7 @@ builder.Services.AddScoped<IDataService<City, CityDTO>, DataService<City, CityDT
 builder.Services.AddScoped<IFavoritesService, FavoritesService>();
 builder.Services.AddScoped<IFileService, AzurePictureService>();
 
-builder.Services.AddAutoMapper(typeof(ApplicationProfile));
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // Identity configurations
 builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -59,8 +60,9 @@ var app = builder.Build();
 // Seed roles and admin user
 using var scope = app.Services.CreateScope();
 var provider = scope.ServiceProvider;
-var seedingtask = StartupHelpers.SeedRoles(provider)
-                                .ContinueWith(async x => await StartupHelpers.SeedAdmin(provider));
+StartupHelpers.SeedRoles(provider)
+              .ContinueWith(async x => await StartupHelpers.SeedAdmin(provider))
+              .Wait();
 
 app.UseExceptionHandler("/Error");
 
@@ -86,7 +88,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
     );
-
-await await seedingtask;
 
 app.Run();
