@@ -29,8 +29,8 @@ public class BasicDataService<TEntity, TDTO> : IReadDataService<TEntity, TDTO>, 
     protected virtual TDTO[] ToDTOS(IEnumerable<TEntity> entities)
         => Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDTO>>(entities).ToArray();
     // Turns data transfer objects into entity items
-    protected virtual TEntity[] ToEntities(IEnumerable<TDTO> entities)
-        => Mapper.Map<IEnumerable<TDTO>, IEnumerable<TEntity>>(entities).ToArray();
+    protected virtual TEntity[] ToEntities(IEnumerable<TDTO> dtos)
+        => Mapper.Map<IEnumerable<TDTO>, IEnumerable<TEntity>>(dtos).ToArray();
 
     public virtual TDTO? GetById(int id)
     {

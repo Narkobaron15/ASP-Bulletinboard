@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Identity;
 using Bulletinboard.Helpers;
 using Business_Logic.Interfaces;
 using Business_Logic.Services;
-using Business_Logic.Profiles;
 using Repository.Implementations;
 using Repository.Interfaces;
 using Business_Logic.DTO;
 using System.Reflection;
+using Business_Logic.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +34,7 @@ builder.Services.AddScoped<IDataService<City, CityDTO>, DataService<City, CityDT
 builder.Services.AddScoped<IFavoritesService, FavoritesService>();
 builder.Services.AddScoped<IFileService, AzurePictureService>();
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(ApplicationProfile));
 
 // Identity configurations
 builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -64,11 +64,11 @@ StartupHelpers.SeedRoles(provider)
               .ContinueWith(async x => await StartupHelpers.SeedAdmin(provider))
               .Wait();
 
-app.UseExceptionHandler("/Error");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+    app.UseExceptionHandler("/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }

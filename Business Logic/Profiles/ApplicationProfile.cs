@@ -10,7 +10,7 @@ public class ApplicationProfile : AutoMapper.Profile
     {
         // Bulletin maps (map city and country names)
         this.CreateMap<Bulletin, BulletinDTO>();
-        this.CreateMap<BulletinDTO, Bulletin>();
+        this.CreateMap<BulletinDTO, Bulletin>().ForMember(x => x.OwnerId, opt => opt.Ignore());
 
         // Category maps
         this.CreateMap<Category, CategoryDTO>();
