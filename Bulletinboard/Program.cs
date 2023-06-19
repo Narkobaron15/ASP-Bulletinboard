@@ -9,7 +9,6 @@ using Repository.Implementations;
 using Repository.Interfaces;
 using Business_Logic.DTO;
 using System.Reflection;
-using Business_Logic.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +33,15 @@ builder.Services.AddScoped<IDataService<City, CityDTO>, DataService<City, CityDT
 builder.Services.AddScoped<IFavoritesService, FavoritesService>();
 builder.Services.AddScoped<IFileService, AzurePictureService>();
 
-builder.Services.AddAutoMapper(typeof(ApplicationProfile));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+var stdcolor = Console.ForegroundColor;
+Console.ForegroundColor = ConsoleColor.Yellow;
+foreach (var a in AppDomain.CurrentDomain.GetAssemblies().Select(x => x.FullName).Order())
+{
+    Console.WriteLine(a);
+}
+Console.ForegroundColor = stdcolor;
 
 // Identity configurations
 builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
