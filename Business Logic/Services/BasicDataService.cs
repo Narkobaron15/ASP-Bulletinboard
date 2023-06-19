@@ -27,10 +27,10 @@ public class BasicDataService<TEntity, TDTO> : IReadDataService<TEntity, TDTO>, 
         => Mapper.Map<TDTO, TEntity>(dto);
     // Turns entity items into data transfer objects
     protected virtual TDTO[] ToDTOS(IEnumerable<TEntity> entities)
-        => Mapper.Map<IEnumerable<TEntity>, TDTO[]>(entities);
+        => Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDTO>>(entities).ToArray();
     // Turns data transfer objects into entity items
     protected virtual TEntity[] ToEntities(IEnumerable<TDTO> entities)
-        => Mapper.Map<IEnumerable<TDTO>, TEntity[]>(entities);
+        => Mapper.Map<IEnumerable<TDTO>, IEnumerable<TEntity>>(entities).ToArray();
 
     public virtual TDTO? GetById(int id)
     {
